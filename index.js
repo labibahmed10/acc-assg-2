@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
+
+// routes for tour management
 const tourRoutes = require("./routes/tour.route");
 
 // middlewares
