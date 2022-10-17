@@ -11,11 +11,27 @@ const tourSchema = mongoose.Schema(
          minLength: [4, "The name of the tour name is too short"],
          maxLength: [50, "The name of the tour is too long"],
       },
+
       description: {
          type: String,
          required: true,
          trim: true,
       },
+
+      image: {
+         type: String,
+         required: true,
+      },
+
+      status: {
+         type: String,
+         required: true,
+         enum: {
+            values: ["available", "unavailable"],
+            message: `Status can't be {VALUE}`,
+         },
+      },
+
       price: {
          type: Number,
          requied: true,
@@ -33,8 +49,10 @@ const tourSchema = mongoose.Schema(
          },
          message: `Price can not be {VALUE}, it should be a number`,
       },
+
       viewCount: {
          type: Number,
+         default: 0,
       },
    },
    {
