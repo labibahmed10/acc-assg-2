@@ -20,6 +20,18 @@ const tourSchema = mongoose.Schema(
       type: Number,
       requied: true,
       min: [0, "Price can't be negative number"],
+      validate: {
+        validator: function (value) {
+          const integer = Number.isInteger(value);
+
+          if (integer) {
+            return true;
+          } else {
+            return false;
+          }
+        },
+      },
+      message: `Price can not be {VALUE}, it should be a number`,
     },
     viewCount: {
       type: Number,
