@@ -61,5 +61,5 @@ const tourSchema = mongoose.Schema(
 );
 
 // Model for tour management
-const TourModel = mongoose.Model("TourModel", tourSchema);
+const TourModel = mongoose.model("TourModel", tourSchema);
 module.exports = TourModel;

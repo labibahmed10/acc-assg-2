@@ -1,4 +1,4 @@
-const TourModel = require("../model/Tour.Model");
+const { uploadASingleTour } = require("../services/tour.service");
 
 module.exports.getAllTheTours = async (req, res, next) => {
    try {
@@ -7,8 +7,22 @@ module.exports.getAllTheTours = async (req, res, next) => {
 
 module.exports.createATour = async (req, res, next) => {
    try {
-      post;
-   } catch (error) {}
+      const body = req.body;
+      console.log(body);
+
+      const result = await uploadASingleTour(body);
+      res.status(200).send({
+         status: "success",
+         message: "Tour data added succesfully",
+         data: result,
+      });
+   } catch (error) {
+      res.status(400).send({
+         status: "failed",
+         message: "Could not add the tour data",
+         data: error.message,
+      });
+   }
 };
 
 // module.exports.getTourDetailByID = async (req, res, next) => {
