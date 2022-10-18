@@ -13,6 +13,15 @@ module.exports.getAllTheTours = async (req, res, next) => {
          query.sort = sort.split(",").join(" ");
       }
 
+      // page = 1 -> 1 - 10 >> skip = (page - 1) * limit > totalshowed
+      // page = 2 -> 11 - 20 >> skip = (page - 1) * limit > totalshowed
+
+      if (req.query.page) {
+         let { page = 1, limit = 10 } = { ...req.query };
+         query.skip = (Number(page) - 1) * Number(limit);
+         query.limit = Number(limit);
+      }
+
       const result = await showAllProduct(query);
 
       res.status(200).send({
