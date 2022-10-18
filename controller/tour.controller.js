@@ -1,4 +1,9 @@
-const { uploadASingleTour, showAllProduct, showSingleTourByID: showSingleTourByID } = require("../services/tour.services");
+const {
+   uploadASingleTour,
+   showAllProduct,
+   showSingleTourByID: showSingleTourByID,
+   updateSingleTourDetailByID: updateSingleTourDetailByID,
+} = require("../services/tour.services");
 
 module.exports.getAllTheTours = async (req, res, next) => {
    try {
@@ -41,7 +46,6 @@ module.exports.getAllTheTours = async (req, res, next) => {
 module.exports.createATour = async (req, res, next) => {
    try {
       const body = req.body;
-
       const result = await uploadASingleTour(body);
 
       // sending success message
@@ -65,6 +69,14 @@ module.exports.getTourDetailByID = async (req, res, next) => {
       const { id } = req.params;
       const result = await showSingleTourByID(id);
 
+      if (!result) {
+         return res.status(200).send({
+            status: "Facing Issues with Id",
+            message: "There might be problem with the Id or data is loading,try again",
+            data: result,
+         });
+      }
+
       res.status(200).send({
          status: "success",
          message: "Single tour details showed",
@@ -74,16 +86,31 @@ module.exports.getTourDetailByID = async (req, res, next) => {
       // error message
       res.status(400).send({
          status: "failed",
-         message: `The ID - ${error.value._id} that you have given is not appropriate, please provide a valid ID to get the Detail`,
+         message: `The ID that you have given is not appropriate, please provide a valid ID to get the Detail`,
       });
    }
 };
 
-// module.exports.uddateTourById = async (req, res, next) => {
-//    try {
-//       post;
-//    } catch (error) {}
-// };
+module.exports.updateTourDetailByID = async (req, res, next) => {
+   try {
+      const body = req.body;
+      const { id } = req.params;
+      const result = await updateSingleTourDetailByID(body, id);
+
+      res.status(200).send({
+         status: "success",
+         message: "The tour detail is now updated",
+         data: result,
+      });
+   } catch (error) {
+      // error message
+      res.status(400).send({
+         status: "failed",
+         message: `Your given ID is Invalid, please provide a valid ID to update the document`,
+         data: error.message,
+      });
+   }
+};
 
 // module.exports.seeTrendingTour = async (req, res, next) => {
 //    try {

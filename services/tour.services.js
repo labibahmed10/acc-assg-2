@@ -17,7 +17,18 @@ exports.uploadASingleTour = async (body) => {
 };
 
 exports.showSingleTourByID = async (id) => {
-   const result = await TourModel.findById({ _id: id });
-
+   let result = await TourModel.findOne({ _id: id });
+   result.viewCount++;
+   await result.save();
    return result;
 };
+
+exports.updateSingleTourDetailByID = async (body, id) => {
+   const result = await TourModel.updateOne(
+      { _id: id },
+      { $set: body },
+      { runValidators: true });
+   return result;
+};
+
+
