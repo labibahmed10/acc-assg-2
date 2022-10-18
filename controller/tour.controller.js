@@ -1,4 +1,4 @@
-const { uploadASingleTour, showAllProduct } = require("../services/tour.services");
+const { uploadASingleTour, showAllProduct, showSingleTourByID: showSingleTourByID } = require("../services/tour.services");
 
 module.exports.getAllTheTours = async (req, res, next) => {
    try {
@@ -60,11 +60,24 @@ module.exports.createATour = async (req, res, next) => {
    }
 };
 
-// module.exports.getTourDetailByID = async (req, res, next) => {
-//    try {
-//       post;
-//    } catch (error) {}
-// };
+module.exports.getTourDetailByID = async (req, res, next) => {
+   try {
+      const { id } = req.params;
+      const result = await showSingleTourByID(id);
+
+      res.status(200).send({
+         status: "success",
+         message: "Single tour details showed",
+         data: result,
+      });
+   } catch (error) {
+      // error message
+      res.status(400).send({
+         status: "failed",
+         message: `The ID - ${error.value._id} that you have given is not appropriate, please provide a valid ID to get the Detail`,
+      });
+   }
+};
 
 // module.exports.uddateTourById = async (req, res, next) => {
 //    try {
