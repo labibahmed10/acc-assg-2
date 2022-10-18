@@ -3,6 +3,7 @@ const {
    showAllProduct,
    showSingleTourByID: showSingleTourByID,
    updateSingleTourDetailByID: updateSingleTourDetailByID,
+   seeTopTrendingTour,
 } = require("../services/tour.services");
 
 module.exports.getAllTheTours = async (req, res, next) => {
@@ -112,11 +113,24 @@ module.exports.updateTourDetailByID = async (req, res, next) => {
    }
 };
 
-// module.exports.seeTrendingTour = async (req, res, next) => {
-//    try {
-//       post;
-//    } catch (error) {}
-// };
+module.exports.seeTrendingTour = async (req, res, next) => {
+   try {
+      const result = await seeTopTrendingTour();
+
+      res.status(200).send({
+         status: "success",
+         message: "The top 3 tour detail are showed",
+         data: result,
+      });
+   } catch (error) {
+      // error message
+      res.status(400).send({
+         status: "failed",
+         message: "Could not show the top viewed tour due to problem, try again",
+         data: error,
+      });
+   }
+};
 
 // module.exports.seeCheapestTour = async (req, res, next) => {
 //    try {

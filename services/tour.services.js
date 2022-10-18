@@ -25,10 +25,16 @@ exports.showSingleTourByID = async (id) => {
 
 exports.updateSingleTourDetailByID = async (body, id) => {
    const result = await TourModel.updateOne(
-      { _id: id },
-      { $set: body },
+      { _id: id }, 
+      { $set: body }, 
       { runValidators: true });
    return result;
 };
 
-
+exports.seeTopTrendingTour = async () => {
+   const result = await TourModel.
+   find({}).
+   sort({ viewCount: -1 }).
+   limit(3);
+   return result;
+};
