@@ -14,7 +14,7 @@ app.use("/api/v1", tourRoutes);
 
 // basic check
 app.get("/", (req, res, next) => {
-   res.send("The app is now running");
+   res.send("The API enpoints will show you Tour Management api's");
 });
 
 module.exports = app;

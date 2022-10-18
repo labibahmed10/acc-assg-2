@@ -1,9 +1,10 @@
 const {
    uploadASingleTour,
    showAllProduct,
-   showSingleTourByID: showSingleTourByID,
-   updateSingleTourDetailByID: updateSingleTourDetailByID,
+   showSingleTourByID,
+   updateSingleTourDetailByID,
    seeTopTrendingTour,
+   seeTopCheapestTours,
 } = require("../services/tour.services");
 
 module.exports.getAllTheTours = async (req, res, next) => {
@@ -35,7 +36,9 @@ module.exports.getAllTheTours = async (req, res, next) => {
          message: "Tour data showed successfully",
          data: result,
       });
-   } catch (error) {
+
+   } 
+   catch (error) {
       res.status(400).send({
          status: "failed",
          message: "Could not show all the product according to query",
@@ -55,7 +58,9 @@ module.exports.createATour = async (req, res, next) => {
          message: "Tour data added succesfully",
          data: result,
       });
-   } catch (error) {
+
+   }
+   catch (error) {
       // error message
       res.status(400).send({
          status: "failed",
@@ -83,7 +88,9 @@ module.exports.getTourDetailByID = async (req, res, next) => {
          message: "Single tour details showed",
          data: result,
       });
-   } catch (error) {
+
+   } 
+   catch (error) {
       // error message
       res.status(400).send({
          status: "failed",
@@ -103,7 +110,9 @@ module.exports.updateTourDetailByID = async (req, res, next) => {
          message: "The tour detail is now updated",
          data: result,
       });
-   } catch (error) {
+
+   }
+   catch (error) {
       // error message
       res.status(400).send({
          status: "failed",
@@ -122,7 +131,9 @@ module.exports.seeTrendingTour = async (req, res, next) => {
          message: "The top 3 tour detail are showed",
          data: result,
       });
-   } catch (error) {
+
+   }
+    catch (error) {
       // error message
       res.status(400).send({
          status: "failed",
@@ -132,8 +143,23 @@ module.exports.seeTrendingTour = async (req, res, next) => {
    }
 };
 
-// module.exports.seeCheapestTour = async (req, res, next) => {
-//    try {
-//       post;
-//    } catch (error) {}
-// };
+module.exports.seeCheapestTour = async (req, res, next) => {
+   try {
+      const result = await seeTopCheapestTours();
+
+      res.status(200).send({
+         status: "success",
+         message: "Top 3 Cheapest tour details are showed",
+         data: result,
+      });
+
+   }
+    catch (error) {
+      // error message
+      res.status(400).send({
+         status: "failed",
+         message: "Could not show the 'Cheapest' tour due to problem, try again",
+         data: error,
+      });
+   }
+};
