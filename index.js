@@ -13,14 +13,20 @@ app.use(express.json());
 app.use(cors());
 
 // database connection
-mongoose
-   .connect(process.env.DATABASE, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-   })
-   .then(() => {
-      console.log(`Database connection is successful`);
-   });
+
+const uri = `mongodb+srv://${process.env.DATABASE_USER}:${process.env.DATABASE_PASS}@cluster0.zqp7w.mongodb.net/?retryWrites=true&w=majority`;
+
+const connectMongoose = async () => {
+   await mongoose
+      .connect(uri, {
+         useNewUrlParser: true,
+         useUnifiedTopology: true,
+      })
+      .then(mongoose.connection);
+   console.log(`Database connection is successful`);
+};
+
+connectMongoose();
 
 // routes for tour management
 app.use("/api/v1", tourRoutes);
