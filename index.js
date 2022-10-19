@@ -12,10 +12,15 @@ const tourRoutes = require("./routes/tour.route");
 app.use(express.json());
 app.use(cors());
 
-// mongoose connection
-mongoose.connect(process.env.DATABASE).then(() => {
-   console.log("Database was connected Successfully");
-});
+// database connection
+mongoose
+   .connect(process.env.DATABASE, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+   })
+   .then(() => {
+      console.log(`Database connection is successful`);
+   });
 
 // routes for tour management
 app.use("/api/v1", tourRoutes);
