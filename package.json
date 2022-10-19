@@ -2,11 +2,11 @@
    "name": "acc-assg-2",
    "version": "1.0.0",
    "description": "",
-   "main": "serverConnect.js",
+   "main": "index.js",
    "scripts": {
       "test": "echo \"Error: no test specified\" && exit 1",
-      "start": "node serverConnect.js",
-      "dev": "nodemon serverConnect.js"
+      "start": "node index.js",
+      "dev": "nodemon index.js"
    },
    "keywords": [],
    "author": "",
