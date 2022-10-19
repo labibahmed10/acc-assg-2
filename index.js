@@ -16,6 +16,8 @@ app.use(cors());
 
 const uri = `mongodb+srv://${process.env.DATABASE_USER}:${process.env.DATABASE_PASS}@cluster0.zqp7w.mongodb.net/?retryWrites=true&w=majority`;
 
+// const uri = "mongodb://localhost:27017/tour-management";
+
 const connectMongoose = async () => {
    await mongoose
       .connect(uri, {

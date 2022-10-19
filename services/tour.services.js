@@ -12,7 +12,7 @@ exports.showAllProduct = async (query) => {
 };
 
 exports.uploadASingleTour = async (body) => {
-   const createTour = new TourModel({ ...body, viewCount: 0 });
+   const createTour = TourModel({ ...body, viewCount: 0 });
    const result = await createTour.save();
    return result;
 };
