@@ -1,12 +1,7 @@
 const TourModel = require("../model/Tour.Model");
 
 exports.showAllProduct = async (query) => {
-   const showResult = await TourModel
-   .find({})
-   .skip(query.skip)
-   .limit(query.limit)
-   .select(query.fields)
-   .sort(query.sort);
+   const showResult = await TourModel.find({}).skip(query.skip).limit(query.limit).select(query.fields).sort(query.sort);
 
    // In case if I want to show the page number according to skip-limit combination
 
@@ -17,9 +12,8 @@ exports.showAllProduct = async (query) => {
 };
 
 exports.uploadASingleTour = async (body) => {
-   const result = await TourModel
-   .create(body);
-
+   const createTour = new TourModel({ ...body, viewCount: 0 });
+   const result = await createTour.save();
    return result;
 };
 
@@ -33,26 +27,16 @@ exports.showSingleTourByID = async (id) => {
 };
 
 exports.updateSingleTourDetailByID = async (body, id) => {
-   const result = await TourModel
-   .updateOne(
-      { _id: id },
-      { $set: body },
-      { runValidators: true });
+   const result = await TourModel.updateOne({ _id: id }, { $set: body }, { runValidators: true });
    return result;
 };
 
 exports.seeTopTrendingTour = async () => {
-   const result = await TourModel
-   .find({})
-   .sort("-viewCount")
-   .limit(3);
+   const result = await TourModel.find({}).sort("-viewCount").limit(3);
    return result;
 };
 
 exports.seeTopCheapestTours = async () => {
-   const result = await TourModel
-   .find({})
-   .sort("price")
-   .limit(3);
+   const result = await TourModel.find({}).sort("price").limit(3);
    return result;
 };
